@@ -32,12 +32,20 @@ class ListAdapter(val context: Context) : RecyclerView.Adapter<ListAdapter.MyVie
         val currentItem = pokemonList[position]
         holder.nameView.text = currentItem.name
 
+        val httpUrl = "http://www.serebii.net/pokemongo/pokemon/001.png"
+
+        Glide.with(context)
+            .load("https${currentItem.img.drop(4)}")
+            .into(holder.photoView)
 //        Glide.with(context)
-//            .load("http://pokeapi.co/media/sprites/pokemon/" + currentItem.url + ".png")
+//            .load(currentItem.img)
 //            .centerCrop()
 //            .diskCacheStrategy(DiskCacheStrategy.ALL)
 //            .into(holder.photoView)
     }
+
+
+
 
     override fun getItemCount(): Int = pokemonList.size
 
