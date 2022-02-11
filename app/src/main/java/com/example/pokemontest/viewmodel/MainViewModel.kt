@@ -9,7 +9,7 @@ import com.example.pokemontest.repository.Repository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class ListViewModel : ViewModel() {
+class MainViewModel : ViewModel() {
 
     val pokemonList = MutableLiveData<Response<PokemonResponse>>()
     private val repository: Repository

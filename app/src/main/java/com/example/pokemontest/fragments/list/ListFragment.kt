@@ -8,21 +8,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemontest.R
 import com.example.pokemontest.databinding.FragmentListBinding
-import com.example.pokemontest.model.Pokemon
-import com.example.pokemontest.network.PokemonApi
-import com.example.pokemontest.repository.Repository
-import com.example.pokemontest.viewmodel.ListViewModel
+import com.example.pokemontest.viewmodel.MainViewModel
 
 class ListFragment : Fragment() {
 
     lateinit var binding: FragmentListBinding
-    private val viewModel: ListViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ListAdapter
 
@@ -58,3 +54,6 @@ class ListFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 }
+
+
+

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.example.pokemontest.fragments.list.ListFragment"
-        android:label="fragment_list"
+        android:label="Pokemons"
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/action_listFragment_to_detailFragment"
@@ -17,10 +17,13 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.pokemontest.fragments.detail.DetailFragment"
-        android:label="fragment_detail"
+        android:label="Pokemon"
         tools:layout="@layout/fragment_detail" >
         <action
             android:id="@+id/action_detailFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <argument
+            android:name="currentItem"
+            app:argType="com.example.pokemontest.model.Pokemon" />
     </fragment>
 </navigation>
