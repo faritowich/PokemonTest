@@ -38,6 +38,7 @@ class ListAdapter(val context: Context) : RecyclerView.Adapter<ListAdapter.MyVie
 
         Glide.with(context)
             .load("https${currentItem.img.drop(4)}")
+            .error(R.drawable.ic_broken_image)
             .into(holder.photoView)
 
         holder.pokemonItem.setOnClickListener {

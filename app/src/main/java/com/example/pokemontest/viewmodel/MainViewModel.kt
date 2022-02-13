@@ -1,28 +1,63 @@
 package com.example.pokemontest.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import android.content.Context
+import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.lifecycle.*
+import androidx.navigation.fragment.findNavController
+import com.example.pokemontest.R
+import com.example.pokemontest.data.PokemonDao
+import com.example.pokemontest.data.PokemonDatabase
 import com.example.pokemontest.model.Pokemon
 import com.example.pokemontest.model.PokemonResponse
 import com.example.pokemontest.repository.Repository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.lang.Exception
 
-class MainViewModel : ViewModel() {
+enum class PokemonApiStatus { LOADING, ERROR, DONE }
 
-    val pokemonList = MutableLiveData<Response<PokemonResponse>>()
+class MainViewModel(application: Application) : AndroidViewModel(application) {
+
     private val repository: Repository
+//    var readAllData: MutableLiveData<List<Pokemon>>? = null
+
+    private val _pokemonList = MutableLiveData<Response<PokemonResponse>>()
+    private val _status = MutableLiveData<PokemonApiStatus>()
+
+    val pokemonList: MutableLiveData<Response<PokemonResponse>> = _pokemonList
+    val status: LiveData<PokemonApiStatus> = _status
+
 
     init {
-        repository = Repository()
+        val pokemonDao = PokemonDatabase.getDatabase(application).pokemonDao()
+        repository = Repository(pokemonDao)
     }
 
     fun getPokemons() {
         viewModelScope.launch {
-            val response: Response<PokemonResponse> = repository.getAllPokemons()
-            pokemonList.value = response
+            PokemonApiStatus.LOADING
+            try {
+                val response: Response<PokemonResponse> = repository.getAllPokemons()
+                _pokemonList.value = response
+                savePokemonsToDatabase(response)
+//                readAllData?.value = repository.readAllData
+                _status.value = PokemonApiStatus.DONE
+            } catch (e: Exception) {
+                _status.value = PokemonApiStatus.ERROR
+            }
         }
     }
 
+    fun savePokemonsToDatabase(response: Response<PokemonResponse>){
+        viewModelScope.launch(Dispatchers.IO) {
+            for (pokemon in response.body()?.pokemons!!){
+                repository.savePokemonToDatabase(pokemon)
+            }
+        }
+    }
 }
