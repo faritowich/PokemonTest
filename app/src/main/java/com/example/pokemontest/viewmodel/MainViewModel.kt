@@ -24,7 +24,7 @@ enum class PokemonApiStatus { LOADING, ERROR, DONE }
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: Repository
-    var readAllData: MutableLiveData<List<Pokemon>>? = null
+    val readAllData = MutableLiveData<List<Pokemon>>()
 
     private val _pokemonList = MutableLiveData<Response<PokemonResponse>>()
     private val _status = MutableLiveData<PokemonApiStatus>()
@@ -36,6 +36,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     init {
         val pokemonDao = PokemonDatabase.getDatabase(application).pokemonDao()
         repository = Repository(pokemonDao)
+        //readAllData = repository.readAllData()
     }
 
     fun getPokemons() {
@@ -45,7 +46,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 val response: Response<PokemonResponse> = repository.getAllPokemons()
                 _pokemonList.value = response
                 savePokemonsToDatabase(response)
-                readAllData?.value = repository.readAllData()
+                readPokemonDatabase()
                 _status.value = PokemonApiStatus.DONE
             } catch (e: Exception) {
                 _status.value = PokemonApiStatus.ERROR
@@ -55,9 +56,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun savePokemonsToDatabase(response: Response<PokemonResponse>){
         viewModelScope.launch(Dispatchers.IO) {
-            for (pokemon in response.body()?.pokemons!!){
-                repository.savePokemonToDatabase(pokemon)
+            if (response.isSuccessful) {
+                for (pokemon in response.body()?.pokemons!!){
+                    repository.savePokemonToDatabase(pokemon)
+                }
             }
+        }
+    }
+
+    suspend fun readPokemonDatabase(){
+        viewModelScope.launch(Dispatchers.IO) {
+            readAllData.postValue(repository.readAllData())
         }
     }
 }

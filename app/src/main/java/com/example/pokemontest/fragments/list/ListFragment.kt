@@ -24,6 +24,9 @@ import com.example.pokemontest.viewmodel.PokemonApiStatus
 
 import androidx.room.Room
 import com.example.pokemontest.data.PokemonDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class ListFragment : Fragment() {
 
@@ -44,6 +47,7 @@ class ListFragment : Fragment() {
     ): View? {
         binding = FragmentListBinding.inflate(inflater, container, false)
         setRecyclerView()
+
 
         viewModel.getPokemons()
 
@@ -68,6 +72,20 @@ class ListFragment : Fragment() {
                 }
             }
         })
+
+        lifecycleScope.launch {
+            viewModel.readPokemonDatabase()
+        }
+
+        binding.readDataButton.setOnClickListener {
+             lifecycleScope.launch {
+                 viewModel.readPokemonDatabase()
+             }
+        }
+
+        binding.showDataButton.setOnClickListener {
+            binding.testText.text = viewModel.readAllData.value.toString()
+        }
 
         return binding.root
     }
