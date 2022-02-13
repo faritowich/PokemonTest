@@ -25,7 +25,6 @@ import com.example.pokemontest.viewmodel.PokemonApiStatus
 import androidx.room.Room
 import com.example.pokemontest.data.PokemonDatabase
 
-
 class ListFragment : Fragment() {
 
     lateinit var binding: FragmentListBinding
@@ -52,9 +51,6 @@ class ListFragment : Fragment() {
             if (response.isSuccessful) {
                 response.body()?.let { adapter.setData(it.pokemons) }
                 Toast.makeText(requireContext(), "Downloaded", Toast.LENGTH_SHORT).show()
-            } else {
-//                viewModel.offlinePokemonList.value?.let { adapter.setData(it.pokemons) }
-                Toast.makeText(requireContext(), "No internet connection", Toast.LENGTH_SHORT).show()
             }
         })
 

@@ -9,7 +9,7 @@ import retrofit2.Response
 
 class Repository(private val pokemonDao: PokemonDao) {
 
-//    val readAllData: List<Pokemon>? = pokemonDao.getPokemonsFromDatabase()
+    fun readAllData(): List<Pokemon>? = pokemonDao.getPokemonsFromDatabase()
 
     suspend fun getAllPokemons(): Response<PokemonResponse>{
         return RetrofitInstance.api.getPokemons()

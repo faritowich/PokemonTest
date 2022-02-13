@@ -24,7 +24,7 @@ enum class PokemonApiStatus { LOADING, ERROR, DONE }
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: Repository
-//    var readAllData: MutableLiveData<List<Pokemon>>? = null
+    var readAllData: MutableLiveData<List<Pokemon>>? = null
 
     private val _pokemonList = MutableLiveData<Response<PokemonResponse>>()
     private val _status = MutableLiveData<PokemonApiStatus>()
@@ -45,7 +45,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 val response: Response<PokemonResponse> = repository.getAllPokemons()
                 _pokemonList.value = response
                 savePokemonsToDatabase(response)
-//                readAllData?.value = repository.readAllData
+                readAllData?.value = repository.readAllData()
                 _status.value = PokemonApiStatus.DONE
             } catch (e: Exception) {
                 _status.value = PokemonApiStatus.ERROR
