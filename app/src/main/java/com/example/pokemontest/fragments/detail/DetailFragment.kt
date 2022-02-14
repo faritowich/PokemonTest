@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.pokemontest.R
 import com.example.pokemontest.databinding.FragmentDetailBinding
 import com.example.pokemontest.databinding.FragmentListBinding
@@ -30,9 +31,14 @@ class DetailFragment : Fragment() {
     ): View? {
         binding = FragmentDetailBinding.inflate(layoutInflater, container, false)
 
-        binding.heightTextView.setText(args.currentItem.height.toString())
-        binding.weightTextView.setText(args.currentItem.weight.toString())
+        binding.heightTextView.setText(args.currentItem.height)
+        binding.weightTextView.setText(args.currentItem.weight)
         binding.typeTextView.setText(args.currentItem.type.toString())
+
+        Glide.with(requireContext())
+            .load("https${args.currentItem.img.drop(4)}")
+            .error(R.drawable.ic_broken_image)
+            .into(binding.pokemonImageView)
 
         return binding.root
     }
