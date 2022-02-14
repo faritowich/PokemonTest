@@ -11,30 +11,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="match_parent"
         android:padding="6dp"
         tools:listitem="@layout/pokemon_item" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/testText"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/readDataButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_marginTop="250dp"
-        android:src="@drawable/ic_launcher_foreground" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/showDataButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:src="@drawable/ic_launcher_foreground" />
-
 
 </LinearLayout>

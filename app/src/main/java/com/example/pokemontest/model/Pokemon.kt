@@ -25,4 +25,4 @@ data class Pokemon(
     val height: String,
     @SerializedName("weight")
     val weight: String,
-): Parcelable
+) : Parcelable

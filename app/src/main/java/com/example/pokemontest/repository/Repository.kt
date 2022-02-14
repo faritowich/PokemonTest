@@ -10,13 +10,13 @@ import retrofit2.Response
 
 class Repository(private val pokemonDao: PokemonDao) {
 
-    fun readAllData(): List<Pokemon> = pokemonDao.getPokemonsFromDatabase()
+    fun getPokemonsFromDatabase(): List<Pokemon> = pokemonDao.getPokemonsFromDatabase()
 
-    suspend fun getAllPokemons(): Response<PokemonResponse>{
+    suspend fun getAllPokemons(): Response<PokemonResponse> {
         return RetrofitInstance.api.getPokemons()
     }
 
-    suspend fun savePokemonToDatabase(pokemon: Pokemon){
+    suspend fun savePokemonToDatabase(pokemon: Pokemon) {
         pokemonDao.addPokemonToDatabase(pokemon)
     }
 }
