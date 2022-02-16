@@ -1,8 +1,7 @@
 package com.example.pokemontest.fragments.list
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,15 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemontest.databinding.FragmentListBinding
 import com.example.pokemontest.viewmodel.MainViewModel
 import com.example.pokemontest.viewmodel.PokemonApiStatus
-
-import androidx.room.Room
-import com.example.pokemontest.data.PokemonDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import android.net.NetworkInfo
-import androidx.core.content.ContextCompat
-
-import androidx.core.content.ContextCompat.getSystemService
-
+import kotlinx.coroutines.runBlocking
 
 class ListFragment : Fragment() {
 
@@ -36,9 +30,6 @@ class ListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        lifecycleScope.launch {
-            viewModel.readPokemonDatabase()
-        }
     }
 
     override fun onCreateView(
@@ -48,31 +39,20 @@ class ListFragment : Fragment() {
         binding = FragmentListBinding.inflate(inflater, container, false)
         setRecyclerView()
 
-        viewModel.getPokemons()
+        runBlocking { viewModel.getPokemons() }
 
-        viewModel.onlinePokemonList.observe(this, Observer { response ->
-            if (response.isSuccessful) {
-                response.body()?.let { adapter.setData(it.pokemons) }
-                Toast.makeText(requireContext(), "Pokemons downloaded", Toast.LENGTH_SHORT).show()
-            }
-        })
+        Log.d("CUSTOMTAG", "onCreateView fragment ${viewModel.status.value.toString()}")
+        Log.d("CUSTOMTAG", "pokemonList fragment ${viewModel.pokemonList.value}")
 
-        viewModel.offlinePokemonList.observe(this, Observer {
+        viewModel.pokemonList.value?.let { adapter.setData(it) }
 
-            lifecycleScope.launch {
-                if (viewModel.status.value == PokemonApiStatus.ERROR) {
-                    try {
-                        viewModel.readPokemonDatabase()
-                        adapter.setData(it)
-                    } catch (e: Exception) {
-                        Toast.makeText(requireContext(), "Offline mode", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
 
-        })
-
+        lifecycleScope.launch {
+            delay(1000)
+            Log.d("CUSTOMTAG", "pokemonList fragment ${viewModel.pokemonList.value}")
+        }
         return binding.root
+
     }
 
     fun setRecyclerView() {

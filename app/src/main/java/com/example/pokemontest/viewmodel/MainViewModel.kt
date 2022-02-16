@@ -1,7 +1,7 @@
 package com.example.pokemontest.viewmodel
 
 import android.app.Application
-import android.content.Context
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.pokemontest.data.PokemonDatabase
 import com.example.pokemontest.model.Pokemon
@@ -11,15 +11,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.lang.Exception
-import android.net.NetworkInfo
-
-import androidx.core.content.ContextCompat.getSystemService
-
-import android.net.ConnectivityManager
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
-
 
 enum class PokemonApiStatus { ERROR, DONE }
 
@@ -27,48 +18,47 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: Repository
 
+    val pokemonList = MutableLiveData<List<Pokemon>>()
+
     private val _offlinePokemonList = MutableLiveData<List<Pokemon>>()
-    private val _onlinePokemonList = MutableLiveData<Response<PokemonResponse>>()
+    private val _onlinePokemonList =
+        MutableLiveData<Response<PokemonResponse>>()
     private val _status = MutableLiveData<PokemonApiStatus>()
 
     val offlinePokemonList: MutableLiveData<List<Pokemon>> = _offlinePokemonList
-    val onlinePokemonList: MutableLiveData<Response<PokemonResponse>> = _onlinePokemonList
+    val onlinePokemonList: MutableLiveData<Response<PokemonResponse>> =
+        _onlinePokemonList
     val status: LiveData<PokemonApiStatus> = _status
-
 
     init {
         val pokemonDao = PokemonDatabase.getDatabase(application).pokemonDao()
         repository = Repository(pokemonDao)
     }
 
-    fun getPokemons() {
-        viewModelScope.launch {
-            try {
-                val response: Response<PokemonResponse> = repository.getAllPokemons()
-                _onlinePokemonList.value = response
-                savePokemonsToDatabase(response)
-                readPokemonDatabase()
-                _status.value = PokemonApiStatus.DONE
-            } catch (e: Exception) {
-                _status.value = PokemonApiStatus.ERROR
-                _offlinePokemonList.value = _onlinePokemonList.value?.body()?.pokemons
+    suspend fun getPokemons() {
+        try {
+            val response: Response<PokemonResponse> = repository.getAllPokemons()
+            Log.d("CUSTOMTAG", "ONLINE VIEWMODEL RESPONSE ${repository.getAllPokemons().body()?.pokemons}")
+            pokemonList.value = response.body()?.pokemons
+            Log.d("CUSTOMTAG", "ONLINE VIEWMODEL POKEMONLIST ${pokemonList.value}")
+            savePokemonsToDatabase(response)
+            _status.value = PokemonApiStatus.DONE
+            Log.d("CUSTOMTAG", "ONLINE VIEWMODEL STATUS ${_status.value.toString()}")
+        } catch (e: Exception) {
+            viewModelScope.launch(Dispatchers.IO) {
+                pokemonList.postValue(repository.getPokemonsFromDatabase())
+                _status.postValue(PokemonApiStatus.ERROR)
+                Log.d("CUSTOMTAG", "OFFLINE VIEWMODEL POKEMONLIST ${pokemonList.value.toString()}")
+                Log.d("CUSTOMTAG", "OFFLINE VIEWMODEL STATUS ${_status.value.toString()}")
             }
         }
     }
 
-    fun savePokemonsToDatabase(response: Response<PokemonResponse>) {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (response.isSuccessful) {
-                for (pokemon in response.body()?.pokemons!!) {
-                    repository.savePokemonToDatabase(pokemon)
-                }
+    suspend fun savePokemonsToDatabase(response: Response<PokemonResponse>) {
+        if (response.isSuccessful) {
+            for (pokemon in response.body()?.pokemons!!) {
+                repository.savePokemonToDatabase(pokemon)
             }
-        }
-    }
-
-    fun readPokemonDatabase() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _offlinePokemonList.postValue(repository.getPokemonsFromDatabase())
         }
     }
 }
