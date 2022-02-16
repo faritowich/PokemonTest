@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemontest.databinding.FragmentListBinding
 import com.example.pokemontest.viewmodel.MainViewModel
-import com.example.pokemontest.viewmodel.PokemonApiStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -41,16 +40,7 @@ class ListFragment : Fragment() {
 
         runBlocking { viewModel.getPokemons() }
 
-        Log.d("CUSTOMTAG", "onCreateView fragment ${viewModel.status.value.toString()}")
-        Log.d("CUSTOMTAG", "pokemonList fragment ${viewModel.pokemonList.value}")
-
         viewModel.pokemonList.value?.let { adapter.setData(it) }
-
-
-        lifecycleScope.launch {
-            delay(1000)
-            Log.d("CUSTOMTAG", "pokemonList fragment ${viewModel.pokemonList.value}")
-        }
         return binding.root
 
     }
