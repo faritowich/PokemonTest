@@ -15,7 +15,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: Repository
 
-    val pokemonList = MutableLiveData<List<Pokemon>>()
+    val _pokemonList = MutableLiveData<List<Pokemon>>()
+    val pokemonList: MutableLiveData<List<Pokemon>> = _pokemonList
 
     init {
         val pokemonDao = PokemonDatabase.getDatabase(application).pokemonDao()
@@ -25,10 +26,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     suspend fun getPokemons() {
         try {
             val response: Response<PokemonResponse> = repository.getAllPokemons()
-            pokemonList.value = response.body()?.pokemons
+            _pokemonList.value = response.body()?.pokemons
             savePokemonsToDatabase(response)
         } catch (e: Exception) {
-            pokemonList.value = repository.getPokemonsFromDatabase()
+            _pokemonList.value = repository.getPokemonsFromDatabase()
         }
     }
 
