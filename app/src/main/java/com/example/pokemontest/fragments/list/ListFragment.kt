@@ -1,22 +1,15 @@
 package com.example.pokemontest.fragments.list
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemontest.databinding.FragmentListBinding
 import com.example.pokemontest.viewmodel.MainViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class ListFragment : Fragment() {
@@ -37,12 +30,9 @@ class ListFragment : Fragment() {
     ): View? {
         binding = FragmentListBinding.inflate(inflater, container, false)
         setRecyclerView()
-
         runBlocking { viewModel.getPokemons() }
-
         viewModel.pokemonList.value?.let { adapter.setData(it) }
         return binding.root
-
     }
 
     fun setRecyclerView() {

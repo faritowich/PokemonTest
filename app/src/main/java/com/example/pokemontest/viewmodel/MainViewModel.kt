@@ -1,14 +1,13 @@
 package com.example.pokemontest.viewmodel
 
 import android.app.Application
-import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.pokemontest.data.PokemonDatabase
 import com.example.pokemontest.model.Pokemon
 import com.example.pokemontest.model.PokemonResponse
 import com.example.pokemontest.repository.Repository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 import java.lang.Exception
 
@@ -29,7 +28,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             pokemonList.value = response.body()?.pokemons
             savePokemonsToDatabase(response)
         } catch (e: Exception) {
-
             pokemonList.value = repository.getPokemonsFromDatabase()
         }
     }

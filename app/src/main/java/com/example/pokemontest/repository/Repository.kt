@@ -9,7 +9,6 @@ import com.example.pokemontest.network.RetrofitInstance
 import retrofit2.Response
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
-import okhttp3.Dispatcher
 
 class Repository(private val pokemonDao: PokemonDao) {
 
@@ -18,7 +17,6 @@ class Repository(private val pokemonDao: PokemonDao) {
             pokemonDao.getPokemonsFromDatabase()
         }
     }
-    //    fun getPokemonsFromDatabase(): List<Pokemon> = pokemonDao.getPokemonsFromDatabase()
 
     suspend fun getAllPokemons(): Response<PokemonResponse> {
         return RetrofitInstance.api.getPokemons()
