@@ -15,4 +15,4 @@
 
 ## Скриншот приложения
 
-![Скриншот приложения]()
+![Скриншот приложения](https://sun9-60.userapi.com/impg/jA6HykbdSD5_i_2qDbLqQ3EqUgUOrhNVeek6YQ/tos8dW7Dj3I.jpg?size=303x640&quality=95&sign=78f70c3d227750a1c2cf835ed3524572&type=album)
