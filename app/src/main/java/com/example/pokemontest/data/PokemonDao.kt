@@ -13,5 +13,4 @@ interface PokemonDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addPokemonToDatabase(pokemon: Pokemon)
-
 }
