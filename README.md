@@ -6,13 +6,13 @@
 JSON: https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json
 
 ## Используемый стек
+*   MVVM (ViewModel, LiveData)
+*   RecyclerView
+*   Navigation Component
+*   ViewBinding
 *   Retrofit2
 *   Room
 *   Glide
-*   RecyclerView
-*   Navigation Component
-*   MVVM (ViewModel, LiveData)
-*   ViewBinding
 *   Coroutines
 
 ## Скриншот приложения
