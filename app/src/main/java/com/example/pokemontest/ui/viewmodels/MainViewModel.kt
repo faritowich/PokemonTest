@@ -10,8 +10,7 @@ import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(val pokemonRepository: PokemonRepository) : ViewModel() {
-
+class MainViewModel @Inject constructor(private val pokemonRepository: PokemonRepository) : ViewModel() {
 
     val _pokemonList = MutableLiveData<List<Pokemon>>()
     val pokemonList: MutableLiveData<List<Pokemon>> = _pokemonList
@@ -26,7 +25,7 @@ class MainViewModel @Inject constructor(val pokemonRepository: PokemonRepository
         }
     }
 
-    suspend fun savePokemonsToDatabase(response: Response<PokemonResponse>) {
+    private suspend fun savePokemonsToDatabase(response: Response<PokemonResponse>) {
         if (response.isSuccessful) {
             for (pokemon in response.body()?.pokemons!!) {
                 pokemonRepository.savePokemonToDatabase(pokemon)
