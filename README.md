@@ -14,6 +14,7 @@ JSON: https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.j
 *   Room
 *   Glide
 *   Coroutines
+*   Unit тесты
 
 ## Скриншот приложения
 
