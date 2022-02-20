@@ -1,4 +1,4 @@
-package com.example.pokemontest.fragments.list
+package com.example.pokemontest.ui.fragments.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,9 +9,11 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemontest.databinding.FragmentListBinding
-import com.example.pokemontest.viewmodel.MainViewModel
+import com.example.pokemontest.ui.viewmodels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 
+@AndroidEntryPoint
 class ListFragment : Fragment() {
 
     lateinit var binding: FragmentListBinding

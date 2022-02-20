@@ -1,7 +1,6 @@
-package com.example.pokemontest.fragments.list
+package com.example.pokemontest.ui.fragments.list
 
 import android.content.Context
-import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

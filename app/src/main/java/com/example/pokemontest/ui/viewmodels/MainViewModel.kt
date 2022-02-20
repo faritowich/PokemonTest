@@ -1,42 +1,35 @@
-package com.example.pokemontest.viewmodel
+package com.example.pokemontest.ui.viewmodels
 
-import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.*
-import com.example.pokemontest.data.PokemonDatabase
 import com.example.pokemontest.model.Pokemon
 import com.example.pokemontest.model.PokemonResponse
-import com.example.pokemontest.repository.Repository
-import kotlinx.coroutines.withContext
+import com.example.pokemontest.repository.PokemonRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Response
 import java.lang.Exception
+import javax.inject.Inject
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class MainViewModel @Inject constructor(val pokemonRepository: PokemonRepository) : ViewModel() {
 
-    private val repository: Repository
 
     val _pokemonList = MutableLiveData<List<Pokemon>>()
     val pokemonList: MutableLiveData<List<Pokemon>> = _pokemonList
 
-    init {
-        val pokemonDao = PokemonDatabase.getDatabase(application).pokemonDao()
-        repository = Repository(pokemonDao)
-    }
-
     suspend fun getPokemons() {
         try {
-            val response: Response<PokemonResponse> = repository.getAllPokemons()
+            val response: Response<PokemonResponse> = pokemonRepository.getPokemonResponseFromServer()
             _pokemonList.value = response.body()?.pokemons
             savePokemonsToDatabase(response)
         } catch (e: Exception) {
-            _pokemonList.value = repository.getPokemonsFromDatabase()
+            _pokemonList.value = pokemonRepository.getPokemonsFromDatabase()
         }
     }
 
     suspend fun savePokemonsToDatabase(response: Response<PokemonResponse>) {
         if (response.isSuccessful) {
             for (pokemon in response.body()?.pokemons!!) {
-                repository.savePokemonToDatabase(pokemon)
+                pokemonRepository.savePokemonToDatabase(pokemon)
             }
         }
     }

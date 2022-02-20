@@ -1,4 +1,4 @@
-package com.example.pokemontest.fragments.detail
+package com.example.pokemontest.ui.fragments.detail
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,8 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.pokemontest.R
 import com.example.pokemontest.databinding.FragmentDetailBinding
-import com.example.pokemontest.databinding.FragmentListBinding
-import com.example.pokemontest.viewmodel.MainViewModel
+import com.example.pokemontest.ui.viewmodels.MainViewModel
 
 
 class DetailFragment : Fragment() {

@@ -7,7 +7,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
 import com.example.pokemontest.model.Pokemon
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Before
@@ -32,7 +31,7 @@ class PokemonDaoTest {
             ApplicationProvider.getApplicationContext(),
             PokemonDatabase::class.java
         ).allowMainThreadQueries().build()
-        dao = database.pokemonDao()
+        dao = database.getPokemonDao()
     }
 
     @After

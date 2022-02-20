@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragments.detail.DetailFragment">
+    tools:context=".ui.fragments.detail.DetailFragment">
 
     <ImageView
         android:id="@+id/pokemon_image_view"
