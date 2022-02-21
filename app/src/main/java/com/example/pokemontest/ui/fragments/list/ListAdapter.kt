@@ -33,8 +33,6 @@ class ListAdapter(val context: Context) : RecyclerView.Adapter<ListAdapter.MyVie
         val currentItem = pokemonList[position]
         holder.nameView.text = currentItem.name
 
-        val httpUrl = "http://www.serebii.net/pokemongo/pokemon/001.png"
-
         Glide.with(context)
             .load("https${currentItem.img.drop(4)}")
             .error(R.drawable.ic_broken_image)
@@ -45,7 +43,6 @@ class ListAdapter(val context: Context) : RecyclerView.Adapter<ListAdapter.MyVie
             holder.itemView.findNavController().navigate(action)
         }
     }
-
 
     override fun getItemCount(): Int = pokemonList.size
 

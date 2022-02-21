@@ -12,8 +12,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(private val pokemonRepository: PokemonRepository) : ViewModel() {
 
-    val _pokemonList = MutableLiveData<List<Pokemon>>()
-    val pokemonList: MutableLiveData<List<Pokemon>> = _pokemonList
+    private val _pokemonList = MutableLiveData<List<Pokemon>>()
+    val pokemonList: LiveData<List<Pokemon>> = _pokemonList
 
     suspend fun getPokemons() {
         try {
