@@ -10,11 +10,13 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.pokemontest.R
 import com.example.pokemontest.databinding.FragmentDetailBinding
+import com.example.pokemontest.ui.BaseFragment
 import com.example.pokemontest.ui.viewmodels.MainViewModel
 
 
-class DetailFragment : Fragment() {
-    lateinit var binding: FragmentDetailBinding
+class DetailFragment : BaseFragment<FragmentDetailBinding>(
+    FragmentDetailBinding::inflate
+) {
     private val args by navArgs<DetailFragmentArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,22 +24,18 @@ class DetailFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentDetailBinding.inflate(layoutInflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        binding.heightTextView.setText(args.currentItem.height)
-        binding.weightTextView.setText(args.currentItem.weight)
-        binding.typeTextView.setText(args.currentItem.type.toString())
+        binding.apply {
+            heightTextView.text = args.currentItem.height
+            weightTextView.text = args.currentItem.weight
+            typeTextView.text = args.currentItem.type.toString()
+        }
 
         Glide.with(requireContext())
             .load("https${args.currentItem.img.drop(4)}")
             .error(R.drawable.ic_broken_image)
             .into(binding.pokemonImageView)
-
-        return binding.root
     }
-
 }

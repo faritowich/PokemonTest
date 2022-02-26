@@ -10,14 +10,16 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemontest.databinding.FragmentListBinding
+import com.example.pokemontest.ui.BaseFragment
 import com.example.pokemontest.ui.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
-class ListFragment : Fragment() {
+class ListFragment : BaseFragment<FragmentListBinding>(
+    FragmentListBinding::inflate
+) {
 
-    lateinit var binding: FragmentListBinding
     private val viewModel: MainViewModel by viewModels()
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ListAdapter
@@ -27,11 +29,9 @@ class ListFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentListBinding.inflate(inflater, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         setRecyclerView()
 
         viewModel.getPokemons()
@@ -39,9 +39,8 @@ class ListFragment : Fragment() {
         viewModel.pokemonList.observe(this, Observer { response ->
             adapter.setData(response)
         })
-
-        return binding.root
     }
+
 
     private fun setRecyclerView() {
         adapter = ListAdapter(requireContext())
