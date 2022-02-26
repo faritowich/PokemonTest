@@ -5,6 +5,7 @@ import com.example.pokemontest.model.Pokemon
 import com.example.pokemontest.model.PokemonResponse
 import com.example.pokemontest.repository.PokemonRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.lang.Exception
 import javax.inject.Inject
@@ -15,13 +16,15 @@ class MainViewModel @Inject constructor(private val pokemonRepository: PokemonRe
     private val _pokemonList = MutableLiveData<List<Pokemon>>()
     val pokemonList: LiveData<List<Pokemon>> = _pokemonList
 
-    suspend fun getPokemons() {
-        try {
-            val response: Response<PokemonResponse> = pokemonRepository.getPokemonResponseFromServer()
-            _pokemonList.value = response.body()?.pokemons
-            savePokemonsToDatabase(response)
-        } catch (e: Exception) {
-            _pokemonList.value = pokemonRepository.getPokemonsFromDatabase()
+    fun getPokemons() {
+        viewModelScope.launch {
+            try {
+                val response: Response<PokemonResponse> = pokemonRepository.getPokemonResponseFromServer()
+                _pokemonList.value = response.body()?.pokemons
+                savePokemonsToDatabase(response)
+            } catch (e: Exception) {
+                _pokemonList.value = pokemonRepository.getPokemonsFromDatabase()
+            }
         }
     }
 

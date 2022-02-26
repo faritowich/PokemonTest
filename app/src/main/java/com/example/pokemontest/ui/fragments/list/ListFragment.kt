@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pokemontest.databinding.FragmentListBinding
@@ -32,8 +33,13 @@ class ListFragment : Fragment() {
     ): View? {
         binding = FragmentListBinding.inflate(inflater, container, false)
         setRecyclerView()
-        runBlocking { viewModel.getPokemons() }
-        viewModel.pokemonList.value?.let { adapter.setData(it) }
+
+        viewModel.getPokemons()
+//        viewModel.pokemonList.value?.let { adapter.setData(it) }
+
+        viewModel.pokemonList.observe(this, Observer { response ->
+            adapter.setData(response)
+        })
         return binding.root
     }
 

@@ -14,8 +14,6 @@ import com.example.pokemontest.ui.viewmodels.MainViewModel
 
 
 class DetailFragment : Fragment() {
-
-    private val viewModel: MainViewModel by activityViewModels()
     lateinit var binding: FragmentDetailBinding
     private val args by navArgs<DetailFragmentArgs>()
 
