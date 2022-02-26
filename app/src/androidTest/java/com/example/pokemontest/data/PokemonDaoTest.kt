@@ -5,7 +5,9 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.SmallTest
-import com.example.pokemontest.model.Pokemon
+import com.example.pokemontest.data.local.PokemonDao
+import com.example.pokemontest.data.local.PokemonDatabase
+import com.example.pokemontest.data.model.Pokemon
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.test.runTest
 import org.junit.After

@@ -1,8 +1,8 @@
-package com.example.pokemontest.repository
+package com.example.pokemontest.domain
 
 import androidx.lifecycle.MutableLiveData
-import com.example.pokemontest.model.Pokemon
-import com.example.pokemontest.model.PokemonResponse
+import com.example.pokemontest.data.model.Pokemon
+import com.example.pokemontest.data.model.PokemonResponse
 import retrofit2.Response
 
 class FakePokemonRepository : Repository {

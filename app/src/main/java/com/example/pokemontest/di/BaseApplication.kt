@@ -1,4 +1,4 @@
-package com.example.pokemontest
+package com.example.pokemontest.di
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

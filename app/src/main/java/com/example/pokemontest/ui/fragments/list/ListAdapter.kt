@@ -11,7 +11,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pokemontest.R
-import com.example.pokemontest.model.Pokemon
+import com.example.pokemontest.data.model.Pokemon
 
 class ListAdapter(val context: Context) : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 

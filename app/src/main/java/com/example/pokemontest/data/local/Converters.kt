@@ -1,7 +1,6 @@
-package com.example.pokemontest.data
+package com.example.pokemontest.data.local
 
 import androidx.room.TypeConverter
-import java.util.stream.Collectors
 
 
 class Converters {

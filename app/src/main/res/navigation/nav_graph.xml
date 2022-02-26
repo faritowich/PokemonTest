@@ -24,6 +24,6 @@
             app:destination="@id/listFragment" />
         <argument
             android:name="currentItem"
-            app:argType="com.example.pokemontest.model.Pokemon" />
+            app:argType="com.example.pokemontest.data.model.Pokemon" />
     </fragment>
 </navigation>

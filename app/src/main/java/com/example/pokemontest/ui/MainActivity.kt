@@ -1,11 +1,11 @@
-package com.example.pokemontest
+package com.example.pokemontest.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.pokemontest.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

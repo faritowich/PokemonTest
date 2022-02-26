@@ -1,9 +1,7 @@
-package com.example.pokemontest.data
+package com.example.pokemontest.data.local
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
-import com.example.pokemontest.model.Pokemon
+import com.example.pokemontest.data.model.Pokemon
 
 @Dao
 interface PokemonDao {

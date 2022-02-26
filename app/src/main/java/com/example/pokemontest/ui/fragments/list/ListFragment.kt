@@ -35,11 +35,11 @@ class ListFragment : Fragment() {
         setRecyclerView()
 
         viewModel.getPokemons()
-//        viewModel.pokemonList.value?.let { adapter.setData(it) }
 
         viewModel.pokemonList.observe(this, Observer { response ->
             adapter.setData(response)
         })
+
         return binding.root
     }
 

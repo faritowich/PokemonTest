@@ -1,10 +1,10 @@
-package com.example.pokemontest.model
+package com.example.pokemontest.data.model
 
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.example.pokemontest.data.Converters
+import com.example.pokemontest.data.local.Converters
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 

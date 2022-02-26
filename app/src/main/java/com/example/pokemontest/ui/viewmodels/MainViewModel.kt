@@ -1,9 +1,9 @@
 package com.example.pokemontest.ui.viewmodels
 
 import androidx.lifecycle.*
-import com.example.pokemontest.model.Pokemon
-import com.example.pokemontest.model.PokemonResponse
-import com.example.pokemontest.repository.PokemonRepository
+import com.example.pokemontest.data.model.Pokemon
+import com.example.pokemontest.data.model.PokemonResponse
+import com.example.pokemontest.domain.PokemonRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
