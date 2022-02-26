@@ -26,3 +26,4 @@ JSON: https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.j
 *   Перемещение между карточками покемонов по свайпу
 *   Поиск по покемонам, сортировка и фильтр по свойствам
 *   Ссылка на покевикипедию в карточках покемонов
+!! поменять runBlocking на observe
