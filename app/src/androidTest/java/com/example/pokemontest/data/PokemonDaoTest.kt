@@ -20,7 +20,6 @@ import org.junit.runner.RunWith
 @SmallTest
 class PokemonDaoTest {
 
-
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 

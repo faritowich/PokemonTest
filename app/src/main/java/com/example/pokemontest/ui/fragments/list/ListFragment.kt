@@ -43,7 +43,7 @@ class ListFragment : Fragment() {
         return binding.root
     }
 
-    fun setRecyclerView() {
+    private fun setRecyclerView() {
         adapter = ListAdapter(requireContext())
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 3)

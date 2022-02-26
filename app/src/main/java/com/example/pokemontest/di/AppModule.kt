@@ -7,7 +7,6 @@ import com.example.pokemontest.data.local.PokemonDatabase
 import com.example.pokemontest.data.network.PokemonApi
 import com.example.pokemontest.domain.PokemonRepository
 import com.example.pokemontest.domain.Repository
-import com.example.pokemontest.util.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +16,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
+
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
