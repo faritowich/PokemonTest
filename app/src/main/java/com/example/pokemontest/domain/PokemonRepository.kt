@@ -9,11 +9,12 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import javax.inject.Inject
 
-class PokemonRepository @Inject constructor(private val pokemonDao: PokemonDao, private val api: PokemonApi) : Repository {
+class PokemonRepository @Inject constructor(private val dao: PokemonDao, private val api: PokemonApi) :
+    Repository {
 
-    override suspend fun getPokemonsFromDatabase(): List<Pokemon>{
-        return withContext(IO){
-            pokemonDao.getPokemonsFromDatabase()
+    override suspend fun getPokemonsFromDatabase(): List<Pokemon> {
+        return withContext(IO) {
+            dao.getPokemonsFromDatabase()
         }
     }
 
@@ -22,6 +23,6 @@ class PokemonRepository @Inject constructor(private val pokemonDao: PokemonDao, 
     }
 
     override suspend fun savePokemonToDatabase(pokemon: Pokemon) {
-        pokemonDao.addPokemonToDatabase(pokemon)
+        dao.addPokemonToDatabase(pokemon)
     }
 }
