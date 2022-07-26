@@ -1,9 +1,10 @@
 package com.example.pokemontest.ui.viewmodels
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.pokemontest.data.model.Pokemon
 import com.example.pokemontest.data.model.PokemonResponse
-import com.example.pokemontest.domain.PokemonRepository
+import com.example.pokemontest.domain.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -11,7 +12,8 @@ import java.lang.Exception
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val pokemonRepository: PokemonRepository) : ViewModel() {
+class MainViewModel @Inject constructor(private val pokemonRepository: Repository) :
+    ViewModel() {
 
     private val _pokemonList = MutableLiveData<List<Pokemon>>()
     val pokemonList: LiveData<List<Pokemon>> = _pokemonList
@@ -36,4 +38,3 @@ class MainViewModel @Inject constructor(private val pokemonRepository: PokemonRe
         }
     }
 }
-

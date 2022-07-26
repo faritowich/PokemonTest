@@ -63,7 +63,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun providesRepository(dao: PokemonDao, apiService: PokemonApi) : PokemonRepository{
+    fun providesRepository(dao: PokemonDao, apiService: PokemonApi) : Repository{
         return PokemonRepository(dao, apiService)
     }
 }

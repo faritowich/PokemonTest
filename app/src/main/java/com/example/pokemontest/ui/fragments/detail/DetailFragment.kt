@@ -11,9 +11,9 @@ import com.bumptech.glide.Glide
 import com.example.pokemontest.R
 import com.example.pokemontest.databinding.FragmentDetailBinding
 import com.example.pokemontest.ui.BaseFragment
-import com.example.pokemontest.ui.viewmodels.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class DetailFragment : BaseFragment<FragmentDetailBinding>(
     FragmentDetailBinding::inflate
 ) {
